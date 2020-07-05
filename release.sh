@@ -22,13 +22,13 @@ echo "Filename: '${filename}'"
 git tag $tag
 git push origin $tag
 
-curl -LOk "https://github.com/mono0926/LicensePlist/archive/${filename}"
+curl -LOk "https://github.com/team-supercharge/LicensePlist/archive/${filename}"
 sha256=$(shasum -a 256 $filename | cut -d ' ' -f 1)
 rm $filename
 
 # Homebrew
 formula_path="$lib_name.rb"
-formula_url="https://api.github.com/repos/mono0926/homebrew-$lib_name/contents/$formula_path"
+formula_url="https://api.github.com/repos/team-supercharge/homebrew-$lib_name/contents/$formula_path"
 sha=`curl GET $formula_url \
 	| jq -r '.sha'`
 echo "sha: \n$sha"
@@ -53,12 +53,12 @@ zip -j $lib_name.zip /usr/local/bin/$lib_name
 
 # GitHub Release
 github-release release \
-    --user mono0926 \
+    --user team-supercharge \
     --repo LicensePlist \
     --tag $tag
 
 github-release upload \
-    --user mono0926 \
+    --user team-supercharge \
     --repo LicensePlist \
     --tag $tag \
     --name "$lib_name.zip" \
@@ -70,7 +70,7 @@ rm $lib_name.zip
 DEVELOPER_DIR=/Applications/Xcode-10.1.app/Contents/Developer make portable_zip
 portable_zip_name="portable_licenseplist.zip"
 github-release upload \
-    --user mono0926 \
+    --user team-supercharge \
     --repo LicensePlist \
     --tag $tag \
     --name "$portable_zip_name" \
